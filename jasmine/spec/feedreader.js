@@ -80,13 +80,12 @@ $(function() {
 
       
         //Spec starts after done() is called in beforeEach()
-         it("should have at least a single entry element", function(done){
+         it("should have at least a single entry element", function(){
             //Select .entry class of .feed
             let entries = document.querySelector('.feed').getElementsByClassName('entry');
 
             expect(entries.length).not.toBe(0);
             //Call done() to let this spec complete
-            done();
          });
     });
 
@@ -117,14 +116,12 @@ $(function() {
         });
 
         //Spec starts after done() is called in beforeEach()
-         it("content changed", function(done){
+         it("content changed", function(){
             //Calling feedSelection() for the new feed
             let newFeed = feedSelection();
             /*The inner HTML of the old feed should be different from the
             inner HTML of the new feed */
             expect(oldFeed).not.toBe(newFeed);
-            //Call done() to let this spec complete
-            done();
          });
     });
   
