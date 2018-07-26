@@ -36,7 +36,7 @@ $(function() {
 
             for(let feed of allFeeds){
             expect(feed.name).toBeDefined();
-            expect(feed.name).toContain('');
+            expect(feed.name).not.toBe('');
 
             }   
          }); 
@@ -46,11 +46,12 @@ $(function() {
     // Second test suite: Menu functionality
    describe('The menu', function() {
 
+
          /* First spec of 'Menu functionality' makes sure that the menu element 
          is hidden by default */    
-        const body = document.body;
+
         it('menu element is hidden by default', function(){
-            expect(body.className).toContain('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
         /* Second spec of 'Menu functionality' makes sure that the menu changes visibility
@@ -58,7 +59,7 @@ $(function() {
         const icon = document.querySelector('.menu-icon-link');
           it('change menu visibility after clicking', function(){
             icon.click();
-            expect($('body').hasClass('menu-hidden')).not.toBe(true);
+            expect($('body').hasClass('menu-hidden')).toBe(false);
             icon.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
           });
@@ -70,21 +71,19 @@ $(function() {
 
          // Using beforeEach and done() as the loadFeed() function is asynchronous
          beforeEach(function(done){
-            //Load feed
-            loadFeed(0, function(){
-                //Call done() to start spec 'should have at least a single entry element'
-                done();
-            });
+            //Load feed and call done() to start spec 'should have at least a single entry element'
+            loadFeed(0, done); 
          });
 
         /* This spec of 'Initial Entries' makes sure that there is an .entry element
         within the .feed container after calling loadFeed() */  
 
-        //Select .entry class of .feed
-        let entries = document.querySelector('.feed').getElementsByClassName('entry');
       
         //Spec starts after done() is called in beforeEach()
          it("should have at least a single entry element", function(done){
+            //Select .entry class of .feed
+            let entries = document.querySelector('.feed').getElementsByClassName('entry');
+
             expect(entries.length).not.toBe(0);
             //Call done() to let this spec complete
             done();
@@ -113,10 +112,7 @@ $(function() {
                 //Calling feedSelection() for the old feed
                 oldFeed = feedSelection();
                 //Load new feed    
-                loadFeed(1, function(){
-                    //Call done() to start spec 'content changed'
-                    done();
-                });
+                loadFeed(1, done);
             });
         });
 
